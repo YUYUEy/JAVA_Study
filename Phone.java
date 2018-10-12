@@ -20,11 +20,23 @@
 	     手机事物,具备哪些属性, 属于他自己的特性
 		   颜色,品牌, 大小
 */
+
 public class Phone{
-	/*
-	    定义手机的属性
-	*/
-	String color;
-	String brand;
-	double size;
+	public static void main(String[] args) {
+	
+		//创建汽车引用类型
+		Car c = new Car();
+		c.brand = "巨力";
+		c.type = "拖拉机";
+		c.paiLiang = 0.5;
+		
+		System.out.println(c.brand+"  "+c.type+"  "+c.paiLiang);
+
+		//创建学生引用类型
+		Student stu = new Student();
+		stu.name = "张三";
+		stu.age = 20;
+		stu.sex = '男';
+		System.out.println(stu.name+"  "+stu.age+"  "+stu.sex);
+	}
 }
