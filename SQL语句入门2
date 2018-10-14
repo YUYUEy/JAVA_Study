@@ -3,25 +3,44 @@
 //SQL LIKE 操作符实例
 下面的 SQL 语句选取 name 以字母 "G" 开始的所有客户：
 -------------------SELECT * FROM Websites WHERE name LIKE 'G%';
+//下面的 SQL 语句选取 name 以字母 "k" 结尾的所有客户：
+-------------------SELECT * FROM Websites WHERE name LIKE '%k';
+
+//下面的 SQL 语句选取 name 包含模式 "oo" 的所有客户：
+-------------------SELECT * FROM Websites WHERE name LIKE '%oo%';
+//下面的 SQL 语句选取 name 不包含模式 "oo" 的所有客户：
+-------------------SELECT * FROM Websites WHERE name NOT LIKE '%oo%';
+//SQL 通配符
+在 SQL 中，通配符与 SQL LIKE 操作符一起使用。
+通配符	描述
+%	替代 0 个或多个字符
+_	替代一个字符
+//下面的 SQL 语句选取 url 以字母 "https" 开始的所有网站：
+-------------------SELECT * FROM Websites WHERE url LIKE 'https%';
+//下面的 SQL 语句选取 name 以一个任意字符开始，然后是 "oogle" 的所有客户：
+-------------------SELECT * FROM WebsitesWHERE name LIKE '_oogle';
+
+//下面的 SQL 语句选取 name 为 "Google" 或 "菜鸟教程" 的所有网站：
+-------------------SELECT * FROM Websites WHERE name IN ('Google','菜鸟教程');
+//in 与 = 的转换
+
+select * from Websites where name in ('Google','菜鸟教程');
+//可以转换成 = 的表达：
+
+select * from Websites where name='Google' or name='菜鸟教程';
 -------------------
 
+//BETWEEN 操作符实例
+//下面的 SQL 语句选取 alexa 介于 1 和 20 之间的所有网站：
+-------------------SELECT * FROM Websites WHERE alexa BETWEEN 1 AND 20;
+//如需显示不在上面实例范围内的网站，请使用 NOT BETWEEN：
+-------------------SELECT * FROM Websites WHERE alexa NOT BETWEEN 1 AND 20;
+//下面的 SQL 语句选取 name 以介于 'A' 和 'H' 之间字母开始的所有网站：
 
--------------------
+-------------------SELECT * FROM Websites WHERE name BETWEEN 'A' AND 'H';
 
-
--------------------
-
-
--------------------
-
-
--------------------
-
-
--------------------
-
-
--------------------
+//下面的 SQL 语句选取 date 介于 '2016-05-10' 和 '2016-05-14' 之间的所有访问记录：
+-------------------SELECT * FROM access_log WHERE date BETWEEN '2016-05-10' AND '2016-05-14';
 
 
 -------------------
