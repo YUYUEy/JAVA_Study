@@ -47,13 +47,37 @@ IN	指定针对某个列的多个可能值
 //SQL UPDATE 实例
 假设我们要把 "菜鸟教程" 的 alexa 排名更新为 5000，country 改为 USA。我们使用下面的 SQL 语句：
 --------------------UPDATE Websites SET alexa='5000', country='USA' WHERE name='菜鸟教程';
+********************Update 警告！
+在更新记录时要格外小心！在上面的实例中，如果我们省略了 WHERE 子句，如下所示：
+执行没有 WHERE 子句的 UPDATE 要慎重，再慎重。
+********************!!!!!!!!!!!!
 
+//SQL DELETE 实例
+假设我们要从 "Websites" 表中删除网站名为 "百度" 且国家为 CN 的网站 。我们使用下面的 SQL 语句：
+--------------------DELETE FROM Websites WHERE name='百度' AND country='CN';
 
+!!!!!!!!!!!!!!!!!!!!!!----------------
+SQL关于删除的三个语句：DROP、TRUNCATE、 DELETE 的区别。
+DROP test;
+删除表test，并释放空间，将test删除的一干二净。
+TRUNCATE test;
+删除表test里的内容，并释放空间，但不删除表的定义，表的结构还在。
+1、删除指定数据
+删除表test中年龄等于30的且国家为US的数据
+--------------------DELETE FROM test WHERE age=30 AND country='US';
+2、删除整个表
 
---------------------
+仅删除表test内的所有内容，保留表的定义，不释放空间。
 
+--------------------DELETE FROM test 或者 DELETE FROM test;
+DELETE * FROM test 或者 DELETE * FROM test;
+!!!!!!!!!!!!!!!!!!!!!!------------------
 
---------------------
+//MySQL SELECT LIMIT 实例
+下面的 SQL 语句从 "Websites" 表中选取头两条记录：
+--------------------SELECT * FROM Websites LIMIT 2;
+--------------------SELECT * FROM Websites LIMIT 0,10;  查询第0~10条
+--------------------SELECT * FROM Websites LIMIT 5,10;  查询第5~15条
 
 
 --------------------
