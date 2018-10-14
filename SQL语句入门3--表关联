@@ -1,0 +1,10 @@
+--------------------------------
+//请注意，"Websites" 表中的 "id" 列指向 "access_log" 表中的字段 "site_id"。上面这两个表是通过 "site_id" 列联系起来的。
+
+然后，如果我们运行下面的 SQL 语句（包含 INNER JOIN）：
+
+实例
+--------------------------------SELECT Websites.id, Websites.name, access_log.count, access_log.date
+FROM Websites
+INNER JOIN access_log
+ON Websites.id=access_log.site_id;--------------------------------
