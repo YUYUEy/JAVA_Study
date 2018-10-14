@@ -34,14 +34,20 @@ IN	指定针对某个列的多个可能值
 --------------------SELECT * FROM Websites ORDER BY alexa;
 //下面的 SQL 语句从 "Websites" 表中选取所有网站，并按照 "alexa" 列降序排序：
 --------------------SELECT * FROM Websites ORDER BY alexa DESC;
-
+//ORDER BY 多列
+下面的 SQL 语句从 "Websites" 表中选取所有网站，并按照 "country" 和 "alexa" 列排序：
+--------------------SELECT * FROM Websites ORDER BY country,alexa;
 --------------------
 
+//INSERT INTO 实例
+//假设我们要向 "Websites" 表中插入一个新行。我们可以使用下面的 SQL 语句：
+--------------------INSERT INTO Websites (name, url, alexa, country) VALUES ('百度','https://www.baidu.com/','4','CN');
 
---------------------
 
+//SQL UPDATE 实例
+假设我们要把 "菜鸟教程" 的 alexa 排名更新为 5000，country 改为 USA。我们使用下面的 SQL 语句：
+--------------------UPDATE Websites SET alexa='5000', country='USA' WHERE name='菜鸟教程';
 
---------------------
 
 
 --------------------
