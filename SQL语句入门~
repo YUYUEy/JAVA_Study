@@ -1,0 +1,5 @@
+//下面的 SQL 语句从 "Websites" 表中选取 "name" 和 "country" 列：
+SELECT name,country FROM Websites;---------
+
+//下面的 SQL 语句从 "Websites" 表中选取所有列：
+SELECT * FROM Websites;------------
