@@ -8,3 +8,35 @@
 FROM Websites
 INNER JOIN access_log
 ON Websites.id=access_log.site_id;--------------------------------
+
+//SQL LEFT JOIN 关键字
+//LEFT JOIN 关键字从左表（table1）返回所有的行，即使右表（table2）中没有匹配。如果右表中没有匹配，则结果为 NULL。
+--------------------------------SELECT Websites.name, access_log.count, access_log.date
+                                FROM Websites
+                                LEFT JOIN access_log
+                                ON Websites.id=access_log.site_id
+
+//SQL RIGHT JOIN 关键字
+//RIGHT JOIN 关键字从右表（table2）返回所有的行，即使左表（table1）中没有匹配。如果左表中没有匹配，则结果为 NULL。
+--------------------------------SELECT Websites.name, access_log.count, access_log.date
+                                FROM access_log
+                                RIGHT JOIN Websites
+                                ON access_log.site_id=Websites.id
+
+
+--------------------------------
+
+
+--------------------------------
+
+
+--------------------------------
+
+
+--------------------------------
+
+
+--------------------------------
+
+
+--------------------------------
