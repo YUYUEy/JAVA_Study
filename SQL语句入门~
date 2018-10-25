@@ -91,10 +91,26 @@ DELETE * FROM test 或者 DELETE * FROM test;
 SELECT * FROM emp WHERE ename LIKE '___'
 
 --------------------
-
+/*13. 查询每个部门的平均工资*/
+/*
+分析：
+列：部门编号、平均工资(平均工资就是分组信息)
+表：emp
+条件：无
+分组：每个部门，即使用部门分组，平均工资，使用avg()函数
+*/
+SELECT deptno, AVG(sal) FROM emp GROUP BY deptno;
 
 --------------------
-
+/*14. 求出每个部门的雇员数量。*/
+/*
+分析：
+列：部门编号、人员数量（人员数量即记录数，这是分组信息）
+表：emp
+条件：无
+分组：每个部门是分组信息，人员数量，使用count()函数
+*/
+SELECT deptno, COUNT(1) FROM emp GROUP BY deptno;
 
 --------------------
 
