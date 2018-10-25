@@ -81,7 +81,14 @@ DELETE * FROM test 或者 DELETE * FROM test;
 
 
 --------------------
-
+/*9. 查询名字由三个字组成的员工。*/
+/*
+分析：
+列：所有
+表：emp
+条件：ename like '___'
+*/
+SELECT * FROM emp WHERE ename LIKE '___'
 
 --------------------
 
