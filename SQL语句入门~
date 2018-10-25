@@ -113,6 +113,13 @@ SELECT deptno, AVG(sal) FROM emp GROUP BY deptno;
 SELECT deptno, COUNT(1) FROM emp GROUP BY deptno;
 
 --------------------
-
+/*
+15. 查询每种工作的最高工资、最低工资、人数
+列：部门、最高工资、最低工资、人数（其中最高工资、最低工资、人数，都是分组信息）
+表：emp
+条件：无
+分组：每种工资是分组信息，最高工资使用max(sal)，最低工资使用min(sal)，人数使用count(*)
+*/
+SELECT job, MAX(sal), MIN(sal), COUNT(1) FROM emp GROUP BY job;
 
 --------------------
