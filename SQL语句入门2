@@ -44,6 +44,30 @@ select * from Websites where name='Google' or name='菜鸟教程';
 
 
 -------------------
+2. 列出薪金比关羽高的所有员工。
+*/
+SELECT *
+FROM emp
+WHERE sal > ALL(SELECT sal FROM emp WHERE ename='关羽')
+
+-------------------
+3. 列出所有员工的姓名及其直接上级的姓名
+*/
+SELECT e.ename, m.ename 
+FROM emp e LEFT OUTER JOIN emp m ON e.mgr=m.empno
+
+
+-------------------
+
+
+
+
+-------------------
+
+
+
+-------------------
+
 
 
 -------------------
