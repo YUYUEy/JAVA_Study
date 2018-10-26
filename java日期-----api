@@ -1,0 +1,49 @@
+public class TimeTest {
+
+    public static void main(String[] args) {
+        Date d1 = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+        System.out.println(sdf.format(d1));
+
+        Calendar c1 = Calendar.getInstance();
+        int year = c1.get(Calendar.YEAR);
+        int month = c1.get(Calendar.MONTH) + 1;
+        int day = c1.get(Calendar.DAY_OF_MONTH);
+        int hour = c1.get(Calendar.HOUR);
+        int minute = c1.get(Calendar.MINUTE);
+        int second = c1.get(Calendar.SECOND);
+        System.out.println(year + "年" + month + "月" + day + "日" + hour + "时" + minute + "分" + second + "秒");
+
+        int hourOfDay = c1.get(Calendar.HOUR_OF_DAY);
+        System.out.println("一天的第" + hourOfDay + "小时");
+
+        int dayOfWeek = c1.get(Calendar.DAY_OF_WEEK);
+        System.out.println("一周的第" + dayOfWeek + "天");
+
+        int dayOfMonth = c1.get(Calendar.DAY_OF_MONTH);
+        System.out.println("一月的第" + dayOfMonth + "天");
+
+        int dayOfYear = c1.get(Calendar.DAY_OF_YEAR);
+        System.out.println("一年的第" + dayOfYear + "天");
+
+        int weekOfYear = c1.get(Calendar.WEEK_OF_YEAR);
+        System.out.println("一年的第" + weekOfYear + "周");
+
+        int weeksInWeekYear = c1.getWeeksInWeekYear();
+        System.out.println("一年有" + weeksInWeekYear + "周");
+
+        Date time = c1.getTime();
+        System.out.println("Date:" + time);
+
+        TimeZone timeZone = c1.getTimeZone();
+        System.out.println("时区：" + timeZone);
+
+        long timeInMillis = c1.getTimeInMillis();
+        System.out.println(timeInMillis);
+
+
+        int weekYear = c1.getWeekYear();
+        System.out.println("今年是：" + weekYear);
+
+    }
+}
