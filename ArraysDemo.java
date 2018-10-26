@@ -55,6 +55,28 @@ public class ArraysDemo{
 			System.out.println(arr[i]);
 		}
 	}
-
+	//////////////////////////////
+	public static void printArray(int[] arr){
+		for(int i=0; i< arr.length;i++){
+			System.out.println(arr[i]);
+		}
+	}
+	public static void printArray(String[] arr){
+		for(int i=0; i< arr.length;i++){
+			System.out.println(arr[i]);
+		}
+	}
+	public static void bubbleSort(int[] arr){
+		for(int i=0; i< arr.length -1; i++){
+			for(int j=i+1; j<arr.length; j++){
+				if(arr[i] >arr[j]){
+					int tmp =arr[i];
+					arr[i] =arr[j];
+					arr[j] =tmp;
+				}
+			}
+		}
+		printArray(arr);
+	}
 
 }
