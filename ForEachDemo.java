@@ -69,6 +69,12 @@ public class ForEachDemo {
 		String[] arr2 ={"sad","sds","were"};
 		System.out.println(Arrays.asList(arr2));
 		System.out.println(Arrays.asList(arr1));
-	/////////////////////////
 	
+	/////////////////////////控制台输入
+	 Scanner sc = new Scanner(System.in);
+		 while (true) {
+			 if(sc.hasNext()){
+				 System.out.println(sc.next());
+			 }
+		}
 }
