@@ -63,6 +63,12 @@ public class ForEachDemo {
 		System.out.println("输入的数字不正确...");
 		break;
 	}
+	////////////////////////打印出数组----
 	
+		int[] arr1 ={1,35,6,78,98};
+		String[] arr2 ={"sad","sds","were"};
+		System.out.println(Arrays.asList(arr2));
+		System.out.println(Arrays.asList(arr1));
+	/////////////////////////
 	
 }
