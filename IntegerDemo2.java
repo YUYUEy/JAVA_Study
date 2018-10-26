@@ -16,7 +16,7 @@ public class IntegerDemo2{
 	 */
 	public static void function_2(){
 		Integer i =new Integer(1);
-		Integer j =new Integer(2);
+		Integer j =new Integer(1);
 		System.out.println(i==j);// false 对象地址
 		System.out.println(i.equals(j));// true  继承Object重写equals,比较的对象数据
 
