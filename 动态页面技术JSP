@@ -1,0 +1,257 @@
+动态页面技术（JSP/EL/JSTL）
+  教学导航
+教学目标	案例：完成商品的列表的展示
+教学方法	
+
+一、JSP技术
+1．jsp脚本和注释
+jsp脚本：
+1）<%java代码%> ----- 内部的java代码翻译到service方法的内部
+2）<%=java变量或表达式> ----- 会被翻译成service方法内部out.print()
+3）<%!java代码%> ---- 会被翻译成servlet的成员的内容
+
+jsp注释：  不同的注释可见范围是不同
+1）Html注释：<!--注释内容--> ---可见范围 jsp源码、翻译后的servlet、页面												显示html源码
+2）java注释：//单行注释  /*多行注释*/ --可见范围 jsp源码 翻译后的servlet
+3）jsp注释：<%--注释内容--%> ----- 可见范围 jsp源码可见
+
+2．jsp运行原理-----jsp本质就是servlet（面试）
+jsp在第一次被访问时会被Web容器翻译成servlet，在执行
+过程：
+第一次访问---->helloServlet.jsp---->helloServlet_jsp.java---->编译运行
+PS：被翻译后的servlet在Tomcat的work目录中可以找到
+
+
+3．jsp指令（3个）
+jsp的指令是指导jsp翻译和运行的命令，jsp包括三大指令：
+1）page指令 --- 属性最多的指令（实际开发中page指令默认）
+属性最多的一个指令，根据不同的属性，指导整个页面特性
+格式：<%@ page 属性名1= "属性值1" 属性名2= "属性值2" ...%>
+常用属性如下：
+language：jsp脚本中可以嵌入的语言种类
+pageEncoding：当前jsp文件的本身编码---内部可以包含contentType
+contentType：response.setContentType(text/html;charset=UTF-8)
+session：是否jsp在翻译时自动创建session
+import：导入java的包
+errorPage：当当前页面出错后跳转到哪个页面
+isErrorPage：当前页面是一个处理错误的页面
+
+2）include指令
+页面包含（静态包含）指令，可以将一个jsp页面包含到另一个jsp页面中
+格式：<%@ include file="被包含的文件地址"%>
+
+3）taglib指令
+在jsp页面中引入标签库（jstl标签库、struts2标签库）
+格式：<%@ taglib uri="标签库地址" prefix="前缀"%>
+
+
+4．jsp内置/隐式对象（9个）----- 笔试
+jsp被翻译成servlet之后，service方法中有9个对象定义并初始化完毕，我们在jsp	脚本中可以直接使用这9个对象
+名称	类型	描述
+out	javax.servlet.jsp.JspWriter	用于页面输出
+request	javax.servlet.http.HttpServletRequest	得到用户请求信息，
+response	javax.servlet.http.HttpServletResponse	服务器向客户端的回应信息
+config	javax.servlet.ServletConfig	服务器配置，可以取得初始化参数
+session	javax.servlet.http.HttpSession	用来保存用户的信息
+application	javax.servlet.ServletContext	所有用户的共享信息
+page	java.lang.Object	指当前页面转换后的Servlet类的实例
+pageContext	javax.servlet.jsp.PageContext	JSP的页面容器
+exception	java.lang.Throwable	表示JSP页面所发生的异常，在错误页中才起作用
+
+(1)out对象
+out的类型：JspWriter
+out作用就是想客户端输出内容----out.write()
+out缓冲区默认8kb 可以设置成0 代表关闭out缓冲区 内容直接写到respons缓冲	器
+
+
+(2)pageContext对象
+jsp页面的上下文对象，作用如下：
+page对象与pageContext对象不是一回事
+1）pageContext是一个域对象
+setAttribute(String name,Object obj)
+getAttribute(String name)
+removeAttrbute(String name)
+
+pageContext可以向指定的其他域中存取数据
+setAttribute(String name,Object obj,int scope)
+getAttribute(String name,int scope)
+removeAttrbute(String name,int scope)
+findAttribute(String name)
+---依次从pageContext域，request域，session域，application域中获	取属性，在某个域中获取后将不在向后寻找
+
+四大作用域的总结：
+page域：当前jsp页面范围
+request域：一次请求
+session域：一次会话
+application域：整个web应用
+
+
+
+2）可以获得其他8大隐式对象
+例如： pageContext.getRequest()
+pageContext.getSession()
+
+
+
+5．jsp标签（动作）
+1）页面包含（动态包含）：<jsp:include page="被包含的页面"/>
+2）请求转发：<jsp:forward page="要转发的资源" />
+
+静态包含与动态包含的区别？
+
+
+
+二、EL技术
+1．EL 表达式概述
+EL（Express Lanuage）表达式可以嵌入在jsp页面内部，减少jsp脚本的编写，EL	出现的目的是要替代jsp页面中脚本的编写。
+
+2．EL从域中取出数据(EL最重要的作用)
+jsp脚本：<%=request.getAttribute(name)%>
+EL表达式替代上面的脚本：${requestScope.name}
+
+
+EL最主要的作用是获得四大域中的数据，格式${EL表达式}
+EL获得pageContext域中的值：${pageScope.key};
+EL获得request域中的值：${requestScope.key};
+EL获得session域中的值：${sessionScope.key};
+EL获得application域中的值：${applicationScope.key};
+EL从四个域中获得某个值${key};
+---同样是依次从pageContext域，request域，session域，application域中	获取属性，在某个域中获取后将不在向后寻找
+
+1）获得普通字符串
+
+2）获得User对象的值
+
+3）获得List<User>的值
+
+3．EL的内置对象11个
+pageScope,requestScope,sessionScope,applicationScope
+ ---- 获取JSP中域中的数据
+param,paramValues 	- 接收参数.
+相当于request.getParameter()  rrquest.getParameterValues()
+header,headerValues	 - 获取请求头信息
+相当于request.getHeader(name)
+initParam				- 获取全局初始化参数
+相当于this.getServletContext().getInitParameter(name)
+cookie	 				- WEB开发中cookie
+相当于request.getCookies()---cookie.getName()---cookie.getValue()
+pageContext			- WEB开发中的pageContext.
+pageContext获得其他八大对象
+
+${pageContext.request.contextPath}
+相当于
+<%=pageContext.getRequest().getContextPath%>  这句代码不能实现
+获得WEB应用的名称
+
+4．EL执行表达式
+例如：
+${1+1}
+${empty user}
+${user==null?true:false}
+
+三、JSTL技术
+1．JSTL概述
+JSTL（JSP Standard Tag Library)，JSP标准标签库，可以嵌入在jsp页面中使用标签的形式完成业务逻辑等功能。jstl出现的目的同el一样也是
+要代替jsp页面中的脚本代码。JSTL标准标准标签库有5个子库，但随着发展，目前常使用的是他的核心库
+标签库	标签库的URI	前缀
+Core 	http://java.sun.com/jsp/jstl/core	c
+I18N	http://java.sun.com/jsp/jstl/fmt	fmt
+SQL	http://java.sun.com/jsp/jstl/sql	sql
+XML	http://java.sun.com/jsp/jstl/xml	x
+Functions	http://java.sun.com/jsp/jstl/functions	fn
+
+2．JSTL下载与导入
+JSTL下载：
+从Apache的网站下载JSTL的JAR包。进入		“http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/”网址下载	JSTL的安装包。
+jakarta-taglibs-standard-1.1.2.zip，然后将下载好的JSTL安装包	进行解压，此时，在lib目录下可以看到两个JAR文件，分别为jstl.jar和standard.jar。
+其中，jstl.jar文件包含JSTL规范中定义的接口和相关类，standard.jar文件包含用于	实现JSTL的.class文件以及JSTL中5个标签库描述符文件（TLD）
+
+将两个jar包导入我们工程的lib中
+
+使用jsp的taglib指令导入核心标签库
+
+3．JSTL核心库的常用标签
+1）<c:if test=””>标签
+其中test是返回boolean的条件
+2）<c:forEach>标签
+使用方式有两种组合形式：
+
+
+
+
+
+
+
+
+
+
+示例：
+
+1）遍历List<String>的值
+
+2）遍历List<User>的值
+
+3）遍历Map<String,String>的值
+
+4）遍历Map<String,User>的值
+
+5）遍历Map<User,Map<String,User>>的值
+entry.key-----User
+entry.value------List<String,User>
+
+
+四、javaEE的开发模式
+1．什么是模式
+模式在开发过程中总结出的“套路”，总结出的一套约定俗成的设计模式
+2．javaEE经历的模式
+model1模式：
+技术组成：jsp+javaBean
+model1的弊端：随着业务复杂性 导致jsp页面比较混乱
+model2模式
+技术组成：jsp+servlet+javaBean
+model2的优点：开发中 使用各个技术擅长的方面
+servlet：擅长处理java业务代码
+jsp：擅长页面的现实
+
+MVC：---- web开发的设计模式
+M：Model---模型 javaBean：封装数据
+V：View-----视图 jsp：单纯进行页面的显示
+C：Controller----控制器 Servelt：获取数据--对数据进行封装--传递数据--	指派显示的jsp页面
+
+
+3．javaEE的三层架构
+服务器开发时 分为三层
+web层：与客户端交互
+service层：复杂业务处理
+dao层：与数据库进行交互
+开发实践时 三层架构通过包结构体现
+
+MVC与三层架构有什么关系？
+
+
+
+
+
+总结：
+EL表达式
+从域中取出数据 ${域中存储的数据的name}
+${pageContext.request.contextPath}
+
+JSTL标签(核心库)
+<%@ taglib uri=”” prefix=”c”%>
+
+<c:if test=””>
+
+<c:forEach items=”数组或集合” var=”数组或集合中的每一个元素”>
+
+
+javaEE三层架构+MVC
+
+web层：收集页面数据，封装数据，传递数据，指定响应jsp页面
+service层：逻辑业务代码的编写
+dao层：数据库的访问代码的编写
+
+
+
+
+
