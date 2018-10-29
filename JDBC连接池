@@ -1,3 +1,11 @@
+/**
+* 1 什么是JDBC
+*  JDBC（Java DataBase Connectivity）就是Java数据库连接，说白了就是用Java语言来操作数据库。
+*  原来我们操作数据库是在控制台使用SQL语句来操作数据库，
+*  JDBC是用Java语言向数据库发送SQL语句。
+
+*/
+
 package cn.itheima.jdbc.test;
 
 import java.sql.Connection;
