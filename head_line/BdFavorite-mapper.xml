@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.midea.iapps.jrsm.inc.service.impl.BdFavoriteServiceImpl">
+
+	<resultMap id="resultMap"
+		type="com.midea.iapps.jrsm.inc.model.BdFavorite">
+		<result column="row_id" property="rowId" />
+		<result column="apply_type" property="applyType" />
+		<result column="favorite_name" property="favoriteName" />
+		<result column="entity_id" property="entityId" />
+		<result column="active_flag" property="activeFlag" />
+		<result column="created_by" property="createdBy" />
+		<result column="creation_date" property="creationDate" />
+		<result column="last_updated_by" property="lastUpdatedBy" />
+		<result column="last_update_date" property="lastUpdateDate" />
+		
+	</resultMap>
+	
+	<resultMap id="resultMapDetail"
+		type="com.midea.iapps.jrsm.inc.model.BdFavorite">
+		<result column="row_id" property="rowId" />
+		<result column="apply_type" property="applyType" />
+		<result column="favorite_name" property="favoriteName" />
+		<result column="entity_id" property="entityId" />
+		<result column="active_flag" property="activeFlag" />
+		<result column="created_by" property="createdBy" />
+		<result column="creation_date" property="creationDate" />
+		<result column="last_updated_by" property="lastUpdatedBy" />
+		<result column="last_update_date" property="lastUpdateDate" />
+		
+		<collection property="itemcatalogList" column="{pFavoriteId=favorite_id}" ofType="com.midea.iapps.jrsm.inc.model.BdFavoriteFilter" select="selectItemcatalogByid"/>
+	</resultMap>
+	
+	<select id="selectItemcatalogByid" resultMap="resultItemMap" parameterType="java.util.Map">
+		SELECT
+			t.favorite_id,
+			t.filter_value_code,
+			t.filter_value_name
+		FROM
+			t_bd_favorite_filter t
+		where t.favorite_id=#{pFavoriteId}
+		
+	</select>
+	
+	<!-- 商品selectBdApplyItemcatalog -->
+	<resultMap id="resultItemMap" 
+		type="com.midea.iapps.jrsm.inc.model.BdFavoriteFilter">
+		<result column="row_id" property="rowId"/>
+		<result column="favorite_id" property="favoriteId"/>
+		<result column="filter_col" property="filterCol"/>
+		<result column="filter_value_code" property="filterValueCode"/>
+		<result column="filter_value_name" property="filterValueName"/>		
+		<result column="entity_id" property="entityId"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="creation_date" property="creationDate"/>
+		<result column="last_updated_by" property="lastUpdatedBy"/>
+		<result column="last_update_date" property="lastUpdateDate"/>
+	</resultMap>
+	
+	<sql id="defaultWhereClause">
+		where 1=1
+		<if test="rowId != null">and t.row_id = #{rowId}</if>
+		<if test="applyType != null">and t.apply_type = #{applyType}</if>
+		<if test="favoriteName != null">and t.favorite_name = #{favoriteName}</if>
+		<if test="entityId != null">and t.entity_id = #{entityId}</if>
+		<if test="activeFlag != null">and t.active_flag = #{activeFlag}</if>
+		<if test="createdBy != null">and t.created_by = #{createdBy}</if>
+		<if test="creationDate != null">and t.creation_date = #{creationDate}</if>
+		<if test="lastUpdatedBy != null">and t.last_updated_by = #{lastUpdatedBy}</if>
+		<if test="lastUpdateDate != null">and t.last_update_date = #{lastUpdateDate}</if>
+	</sql>
+
+	
+	<!-- 查询主表数据 -->
+	<select id="selectList" resultMap="resultMap"
+		parameterType="com.midea.iapps.jrsm.inc.param.BdFavoriteParam">
+		SELECT
+			t.*
+		FROM
+			t_bd_favorite t
+		<include refid="defaultWhereClause"/>
+		<if test="orderByClause != null and orderByClause != ''" >
+	       order by  ${orderByClause}
+	    </if>
+	    <if test="limitClause != null and limitClause != ''" >
+	       ${limitClause}
+	    </if>
+	</select>
+	
+	<!-- 查询主从表数据附带商品 -->
+	<select id="selectListDetail" resultMap="resultMapDetail"
+		parameterType="com.midea.iapps.jrsm.inc.param.BdFavoriteParam">
+		SELECT
+			t.*,t.row_id as favorite_id
+		FROM
+			t_bd_favorite t
+		<include refid="defaultWhereClause"/>
+		<if test="orderByClause != null and orderByClause != ''" >
+	       order by  ${orderByClause}
+	    </if>
+	    <if test="limitClause != null and limitClause != ''" >
+	       ${limitClause}
+	    </if>
+	</select>
+	
+	<select id="selectCount" resultType="java.lang.Integer"
+		parameterType="com.midea.iapps.jrsm.inc.param.BdFavoriteParam">
+		select count(1) from t_bd_favorite t
+		<include refid="defaultWhereClause"/>
+	</select>
+
+	<insert id="insert"
+		parameterType="com.midea.iapps.jrsm.inc.param.BdFavoriteParam"
+		useGeneratedKeys="true" keyProperty="rowId">
+		insert into t_bd_favorite(row_id,apply_type,favorite_name,entity_id,active_flag,created_by,creation_date,last_updated_by,last_update_date)
+		 values(#{rowId},#{applyType},#{favoriteName},#{entityId},#{activeFlag},#{createdBy},now(),#{lastUpdatedBy},now())
+	</insert>
+	
+	
+
+	<update id="update"
+		parameterType="com.midea.iapps.jrsm.inc.param.BdFavoriteParam">
+		update t_bd_favorite t 
+		set t.apply_type=#{applyType}
+			,t.favorite_name=#{favoriteName}
+			,t.entity_id=#{entityId}
+			,t.active_flag=#{activeFlag}
+			,t.last_updated_by=#{lastUpdatedBy}
+			,t.last_update_date=now()
+		 where t.row_id=#{rowId}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete t	 from t_bd_favorite t 
+		where t.row_id = #{rowId}
+	</delete>
+
+</mapper>   
