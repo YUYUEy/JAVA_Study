@@ -1,0 +1,16 @@
+1=> Mybatis的输入参数简单类型string integer pojo自定义的对象
+    包装类QueryVo, xml...
+2=> 输出参数；简单类型ResultMap integer POJO user的类路径
+    《POJO》、ResultMap、手动映射、数据表字段与POJO属性名不一致
+3=> 动态sql：
+    if: 
+        判断是否有此条件  <if test="username !=null && username !=''"></if>
+    where:  
+        当多个条件时，可有可无 where and 条件  where去掉第一个  前and
+    sql片段:
+        <sql id='name1'>select... </sql>
+        <include>
+    foreach:
+         QueryVo(list ids integer[])
+         <foreach collection="ids">
+        
