@@ -37,5 +37,10 @@ Mybatis通过xml或注解的方式将要执行的各种statement（statement、p
                 update – 映射更新语句
                 delete – 映射删除语句
                 select – 映射查询语句
-  
+  --> resultMap 元素是 MyBatis 中最重要最强大的元素。
+  --> 动态 SQL
+             -->if
+             -->choose (when, otherwise)
+             -->trim (where, set)
+             -->foreach
         
