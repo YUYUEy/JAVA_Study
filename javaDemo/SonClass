@@ -1,0 +1,24 @@
+package com.midea.isc.isale.wms.test;
+
+public class SonClass extends FatherClass {
+	/**
+	 * 构造方法调用问题
+ * 子类构造方法会首先默认调用父类的无参构造方法，无论是否显式写了super();
+	 */
+	private static int countSon =0;
+	static{
+		System.out.println("fff---子类可以访问父类的静态属性count " + count);
+        System.out.println("sss---子类的静态属性countSon初始化:" + countSon);
+	}
+	public SonClass(String name){
+		System.out.println("sss-执行了子类的构造方法SonClass(String name) " + name);
+	}
+	public SonClass() {
+        System.out.println("ss-执行了子类的无参构造方法");
+    }
+	
+	public static void main(String[] args) {
+		new SonClass("aaa");
+        new SonClass();
+	}
+}
